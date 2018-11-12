@@ -10,12 +10,27 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 615501dbe4f3fe94fbf4b564abb10237, type: 3}
   m_Name: ModConfig
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   id: OneHundredAndOneDalmatians
   title: 101 Dalmatians
-  description: "<description>\n\nModule created by Timwi.\n\n[url=http://ktane.timwi.de/PDF/101%20Dalmatians.pdf]Manual
-    PDF[/url]\n[url=http://ktane.timwi.de/HTML/101%20Dalmatians.html]Manual
-    HTML[/url]"
+  description: 'Say hello to Blackear, Blackie, Blob, Blot, Bon-Bon, Bravo, Brownie,
+    Bulgey, Bump, Cadpig, Corky, D.J., Da Vinci, Dante, Dash, Dawkins, Deja Vu, Dingo,
+    Dipper, Dipstick, Disco, Disel, Dolly, Dorothy, Dot, Duke, Dylan, Fatty, Fidget,
+    Flapper, Football, Freckles, Furrball, Guy, Growly, Ham, Harvey, Holly, Hoofer,
+    Hoover, Hungry, Inky, Jewel, Jolly, Kirby, Latch, Lenny, Leno, Lipdip, Lucky,
+    Ludo, Lugnut, Lumpy, Missy, Nosey, Pandy, Patches, Penny, Pepper, Perdita, Pickle,
+    Plato, Playdoh, Pointy, Pokey, Polly, Pongo, Pooh, Puddles, Purdy, Queeny, Roger,
+    Roly Poly, Rover, Sa-Sa, Salter, Scooter, Scottie, Sleepy, Smokey, Sniff, Spanky,
+    Spark, Spatter, Speedy, Sport, Spot, Spotty, Steve, Sugar, Swifty, Thunder, Tiger,
+    Tiresome, Tripod, Two-Tone, Wags, Whitey, Whizzer, Yank, and Yoyo.
+
+
+    Module created by Timwi.
+
+
+    [url=http://ktane.timwi.de/PDF/101%20Dalmatians.pdf]Manual PDF[/url]
+
+    [url=http://ktane.timwi.de/HTML/101%20Dalmatians.html]Manual HTML[/url]'
   version: 1.0
   outputFolder: build
   previewImage: {fileID: 2800000, guid: bd5c1f4881f57d54481b44e4c8a7779a, type: 3}
