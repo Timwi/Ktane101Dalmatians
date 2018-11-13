@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using Rnd = UnityEngine.Random;
 
@@ -34,19 +36,24 @@ public class OneHundredAndOneDalmatiansModule : MonoBehaviour
         _moduleId = _moduleIdCounter++;
         _solved = false;
 
+        // Rule seed
         var rnd = RuleSeedable.GetRNG();
         var skip = rnd.Next(0, 100);
         for (var i = 0; i < skip; i++)
             rnd.NextDouble();
         rnd.ShuffleFisherYates(Furspots);
+
+        // Decide which fur pattern to show on the module and in what rotation.
         _solution = Rnd.Range(0, 101);
         Fur.material.mainTexture = Furspots[_solution];
-        Fur.transform.localEulerAngles = new Vector3(0, Rnd.Range(0, 360f), 0);
+        var moduleRotation = Rnd.Range(0, 360f);
+        Fur.transform.localEulerAngles = new Vector3(0, moduleRotation, 0);
         _curDalmatianIndex = Rnd.Range(0, 101);
         UpdateName();
 
-        Debug.LogFormat(@"[101 Dalmatians #{0}] Name initially shown: {1}", _moduleId, _dalmatians[_curDalmatianIndex]);
+        Debug.LogFormat(@"<101 Dalmatians #{0}> Name initially shown: {1}", _moduleId, _dalmatians[_curDalmatianIndex]);
         Debug.LogFormat(@"[101 Dalmatians #{0}] Solution: {1}", _moduleId, _dalmatians[_solution]);
+        Debug.LogFormat(@"[101 Dalmatians #{0}] Showing fur pattern {1} rotated {2}° clockwise", _moduleId, Furspots[_solution].name.Substring(3), Math.Round(moduleRotation));
 
         LeftArrow.OnInteract = delegate { _curDalmatianIndex = (_curDalmatianIndex + 100) % 101; UpdateName(); startLongPress(100); return false; };
         RightArrow.OnInteract = delegate { _curDalmatianIndex = (_curDalmatianIndex + 1) % 101; UpdateName(); startLongPress(1); return false; };
@@ -59,6 +66,9 @@ public class OneHundredAndOneDalmatiansModule : MonoBehaviour
 
         Submit.OnInteract = delegate
         {
+            Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, transform);
+            Submit.AddInteractionPunch();
+
             if (_solved)
                 return false;
             if (_curDalmatianIndex == _solution)
@@ -146,5 +156,30 @@ public class OneHundredAndOneDalmatiansModule : MonoBehaviour
     {
         foreach (var disp in NameDisplays)
             disp.text = _dalmatians[_curDalmatianIndex];
+    }
+
+#pragma warning disable 414
+    private readonly string TwitchHelpMessage = @"!{0} Perdita [submit the name Perdita]";
+#pragma warning restore 414
+
+    public IEnumerator ProcessTwitchCommand(string command)
+    {
+        if (_solved)
+            yield break;
+
+        command = command.Trim();
+        if (!_dalmatians.Contains(command, StringComparer.InvariantCultureIgnoreCase))
+            yield break;
+
+        yield return null;
+        if (!_dalmatians[_curDalmatianIndex].Equals(command, StringComparison.InvariantCultureIgnoreCase))
+        {
+            RightArrow.OnInteract();
+            while (!_dalmatians[_curDalmatianIndex].Equals(command, StringComparison.InvariantCultureIgnoreCase))
+                yield return "trycancel";
+            RightArrow.OnInteractEnded();
+            yield return new WaitForSeconds(.6f);
+        }
+        yield return new[] { Submit };
     }
 }
