@@ -38,6 +38,8 @@ public class OneHundredAndOneDalmatiansModule : MonoBehaviour
 
         // Rule seed
         var rnd = RuleSeedable.GetRNG();
+        Debug.LogFormat("[101 Dalmatians #{0}] Using rule seed: {1}", _moduleId, rnd.Seed);
+
         var skip = rnd.Next(0, 100);
         for (var i = 0; i < skip; i++)
             rnd.NextDouble();
