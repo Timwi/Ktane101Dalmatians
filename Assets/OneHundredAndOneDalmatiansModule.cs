@@ -44,7 +44,6 @@ public class OneHundredAndOneDalmatiansModule : MonoBehaviour
         for (var i = 0; i < skip; i++)
             rnd.NextDouble();
         rnd.ShuffleFisherYates(Furspots);
-        Debug.Log(Furspots[100]);
 
         // Decide which fur pattern to show on the module and in what rotation.
         _solution = Rnd.Range(0, 101);
