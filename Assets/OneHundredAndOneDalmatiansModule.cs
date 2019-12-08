@@ -93,16 +93,6 @@ public class OneHundredAndOneDalmatiansModule : MonoBehaviour
         };
     }
 
-    private static float easeInOutQuad(float t, float start, float end, float duration)
-    {
-        var change = end - start;
-        t /= duration / 2;
-        if (t < 1)
-            return change / 2 * t * t + start;
-        t--;
-        return -change / 2 * (t * (t - 2) - 1) + start;
-    }
-
     private IEnumerator solveAnimationPart1()
     {
         yield return new WaitForSeconds(.3f);
@@ -110,7 +100,7 @@ public class OneHundredAndOneDalmatiansModule : MonoBehaviour
         var elapsed = 0f;
         while (elapsed < duration)
         {
-            Submit.transform.localPosition = new Vector3(easeInOutQuad(elapsed, 0, -0.026f, duration), 0.01501f, .03f);
+            Submit.transform.localPosition = new Vector3(Easing.InOutQuad(elapsed, 0, -0.026f, duration), 0.01501f, .03f);
             yield return null;
             elapsed += Time.deltaTime;
         }
