@@ -174,4 +174,15 @@ public class OneHundredAndOneDalmatiansModule : MonoBehaviour
         }
         yield return new[] { Submit };
     }
+
+    IEnumerator TwitchHandleForcedSolve()
+    {
+        RightArrow.OnInteract();
+        while (_curDalmatianIndex != _solution)
+            yield return true;
+        RightArrow.OnInteractEnded();
+        yield return new WaitForSeconds(.1f);
+        Submit.OnInteract();
+        yield return new WaitForSeconds(.1f);
+    }
 }
