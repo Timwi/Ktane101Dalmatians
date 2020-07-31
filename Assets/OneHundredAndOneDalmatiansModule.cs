@@ -179,7 +179,7 @@ public class OneHundredAndOneDalmatiansModule : MonoBehaviour
     {
         RightArrow.OnInteract();
         while (_curDalmatianIndex != _solution)
-            yield return true;
+            yield return null;
         RightArrow.OnInteractEnded();
         yield return new WaitForSeconds(.1f);
         Submit.OnInteract();
