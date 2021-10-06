@@ -17,6 +17,7 @@ public class OneHundredAndOneDalmatiansModule : MonoBehaviour
 
     public Texture[] Furspots;
     public GameObject[] Dalmatians;
+    public GameObject[] Cats;
     public GameObject DalmatianParent;
     public MeshRenderer Fur;
     public KMSelectable LeftArrow, RightArrow, Submit;
@@ -28,13 +29,16 @@ public class OneHundredAndOneDalmatiansModule : MonoBehaviour
     private int _curDalmatianIndex;
     private Coroutine _longPress;
     private bool _solved;
+    private bool _isAprilFools;
 
     private static readonly string[] _dalmatians = new[] { "Blackear", "Blackie", "Blob", "Blot", "Bon-Bon", "Bravo", "Brownie", "Bulgey", "Bump", "Cadpig", "Corky", "D.J.", "Da Vinci", "Dante", "Dash", "Dawkins", "Deja Vu", "Dingo", "Dipper", "Dipstick", "Disco", "Disel", "Dolly", "Dorothy", "Dot", "Duke", "Dylan", "Fatty", "Fidget", "Flapper", "Football", "Freckles", "Furrball", "Guy", "Growly", "Ham", "Harvey", "Holly", "Hoofer", "Hoover", "Hungry", "Inky", "Jewel", "Jolly", "Kirby", "Latch", "Lenny", "Leno", "Lipdip", "Lucky", "Ludo", "Lugnut", "Lumpy", "Missy", "Nosey", "Pandy", "Patches", "Penny", "Pepper", "Perdita", "Pickle", "Plato", "Playdoh", "Pointy", "Pokey", "Polly", "Pongo", "Pooh", "Puddles", "Purdy", "Queeny", "Roger", "Roly Poly", "Rover", "Sa-Sa", "Salter", "Scooter", "Scottie", "Sleepy", "Smokey", "Sniff", "Spanky", "Spark", "Spatter", "Speedy", "Sport", "Spot", "Spotty", "Steve", "Sugar", "Swifty", "Thunder", "Tiger", "Tiresome", "Tripod", "Two-Tone", "Wags", "Whitey", "Whizzer", "Yank", "Yoyo" };
 
     void Start()
     {
         _moduleId = _moduleIdCounter++;
-        _solved = false;
+
+        string day = System.DateTime.Now.ToString("MM/dd");
+        _isAprilFools = day == "04/01";
 
         // Rule seed
         var rnd = RuleSeedable.GetRNG();
@@ -111,7 +115,10 @@ public class OneHundredAndOneDalmatiansModule : MonoBehaviour
     {
         yield return new WaitForSeconds(.75f);
         var ix = Rnd.Range(0, Dalmatians.Length);
-        Dalmatians[ix].SetActive(true);
+        if (!_isAprilFools)
+            Dalmatians[ix].SetActive(true);
+        else
+            Cats[ix].SetActive(true);
         var scale = DalmatianParent.transform.localScale;
         var duration = .3f;
         var elapsed = 0f;
